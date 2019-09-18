@@ -1,0 +1,75 @@
+﻿<Page
+    x:Class="FillingLevelApp.Views.eMailConfigPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FillingLevelApp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    
+    xmlns:telerik="using:Telerik.UI.Xaml.Controls.Data"
+    xmlns:telerikInput="using:Telerik.UI.Xaml.Controls.Input"
+
+    xmlns:email="using:EmailSupport"
+
+   
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+
+
+        <ScrollViewer Grid.Row="1" Padding="10">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row ="0" Width="Auto" Orientation="Vertical">
+
+                    <StackPanel x:Name="DataInputPanel"   Orientation="Vertical">
+                         <StackPanel Margin="0,5" Orientation="Horizontal">
+                            <TextBox Header="SMTP-eMailServer"   PlaceholderText="smtp.kabelmail.de" Text="{x:Bind eMailing.Server, Mode=TwoWay}" InputScope="EmailSmtpAddress"  Margin="0,0,0,0" Width="200" />
+                            <TextBox Header="SMTP Port" PlaceholderText="465"  Text="{x:Bind eMailing.Port, Mode=TwoWay}" InputScope="Number"  Margin="0,0,0,0" Width="100" />
+                            <ToggleSwitch FontSize="10" Header="SSL" OffContent="OFF" OnContent="ON" IsOn="{x:Bind eMailing.SSL, Mode=TwoWay}" Width="100"/>
+                        
+                        </StackPanel>
+
+ 
+                        <StackPanel   Margin="0,0" Orientation="Horizontal">
+                            <TextBox Header="Username" PlaceholderText="Username"  Text="{x:Bind eMailing.UserName, Mode=TwoWay}" InputScope="Text"  Margin="0,0,0,0" Width="200" />
+                            <PasswordBox x:Name="passwordBox" PlaceholderText="Username" Header="Password"  Password="{x:Bind eMailing.Password, Mode=TwoWay}" Width="200" MaxLength="30" />
+                        </StackPanel>
+ 
+
+                        <StackPanel Margin="0,0" Orientation="Horizontal">
+                            <TextBox Header="Receipient 1" PlaceholderText="wilschneider@kabelmail.de"  Text="{x:Bind eMailing.Receipients[0], Mode=TwoWay}" InputScope="EmailNameOrAddress"  Margin="0,0,0,0" Width="200" />
+                            <TextBox Header="Receipient 2"  PlaceholderText="wilschneider@kabelmail.de" Text="{x:Bind eMailing.Receipients[1], Mode=TwoWay}" InputScope="EmailNameOrAddress"  Margin="0,0,0,0" Width="200" />
+                        </StackPanel>
+
+
+                        <StackPanel Margin="0,0" Orientation="Horizontal">
+                            <TextBox Header="Receipient 3"  PlaceholderText="wilschneider@kabelmail.de" Text="{x:Bind eMailing.Receipients[2], Mode=TwoWay}" InputScope="EmailNameOrAddress"  Margin="0,0,0,0" Width="200" />
+                            <TextBox Header="Receipient 4"  PlaceholderText="wilschneider@kabelmail.de" Text="{x:Bind eMailing.Receipients[3], Mode=TwoWay}" InputScope="EmailNameOrAddress"  Margin="0,0,0,0" Width="200" />
+                        </StackPanel>
+                    </StackPanel>
+
+                </StackPanel>
+
+                <StackPanel Grid.Row ="1" Width="Auto" Orientation="Vertical">
+                    <StackPanel Margin="0,0" Orientation="Horizontal">
+                        <AppBarButton FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Stretch" Click="Testmail_Click" Width="150" Icon="Mail" Label="Send Testmail" />
+                        <ToggleSwitch FontSize="20" Margin="0,0,0,0" Header="Sending State" OffContent="Error" OnContent="ON" IsOn="{x:Bind eMailing.MailSended, Mode=TwoWay}" Width="150"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+
+        </ScrollViewer>
+
+    </Grid>
+</Page>

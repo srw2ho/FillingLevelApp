@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/FillingLevelApp
+/ARM
+/Debug/StationLib
+/FillingLevelApp.Core/bin
+/FillingLevelApp.Core/obj
+/StationLib/ARM
+/StationLib/Debug
+/StationLib/x64
+/x64
+/FillingLevelApp/bin
+/FillingLevelApp/obj

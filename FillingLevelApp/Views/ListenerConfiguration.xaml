@@ -1,0 +1,313 @@
+﻿<Page
+    x:Class="FillingLevelApp.Views.ListenerConfiguration"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WeatherStationAppCSharp.Views"
+    xmlns:StationLib="using:StationLib"
+    xmlns:telerikGrid="using:Telerik.UI.Xaml.Controls.Grid"
+    xmlns:telerikcore="using:Telerik.Data.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:telerikInput="using:Telerik.UI.Xaml.Controls.Input"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid  Margin="0,0,0,0">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <ScrollViewer Grid.Row="0" Grid.Column ="0"  >
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="8*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <Grid>
+                        <StackPanel Width="Auto" Orientation="Vertical" >
+                            <StackPanel x:Name="DataInputPanel"   Orientation="Vertical">
+                                <TextBox  x:Name="ViewName" KeyUp="OnKeyUpHandler" PlaceholderText="Stations Name"  MaxLength="40"   Text="{Binding SelectedItem.ViewName, ElementName=ListenerGridView,Mode=TwoWay}"  Header="StationsName " TextWrapping="Wrap"  Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" />
+                                <StackPanel Margin="0,5" Orientation="Horizontal">
+                                    <TextBox x:Name="Hostname"  KeyUp="OnKeyUpHandler"  PlaceholderText="Insert Remote Host"   Text="{Binding SelectedItem.HostName, ElementName=ListenerGridView, Mode=TwoWay}" Header="Remote Hostname" TextWrapping="Wrap"  Margin="0,0,0,0" VerticalAlignment="Top" Width="150" />
+                                    <TextBox x:Name="Portname"  KeyUp="OnKeyUpHandler"  PlaceholderText="Insert Remote Port" InputScope="Number" MaxLength="4"   Text="{Binding SelectedItem.Port, ElementName=ListenerGridView,Mode=TwoWay}"  Header="Remote PortName" TextWrapping="Wrap"  Margin="0,0,0,0" VerticalAlignment="Top" Width="150" />
+                                </StackPanel>
+                                <StackPanel   Margin="0,0" Orientation="Horizontal">
+
+                                    <telerikInput:RadNumericBox Minimum="1"  Maximum="27"  Value="{Binding SelectedItem.GPIOHCSR04EchoPin,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.######}" Header="HCSR04EchoPin" Watermark="HCSR04EchoPin [1..21]" Margin="0,0,0,0"   Width="10" />
+                                    <telerikInput:RadNumericBox Minimum="1"  Maximum="27"  Value="{Binding SelectedItem.GPIOHCSR04TriggPin,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.######}" Header="HCSR04TriggPin" Watermark="HCSR04TriggPin [1..21]" Margin="0,0,0,0"   Width="10" />
+
+                                </StackPanel>
+                                <StackPanel Margin="0,0" Orientation="Horizontal">
+
+                                    <telerikInput:RadNumericBox Minimum="1"  Maximum="27"  Value="{Binding SelectedItem.OutPutLevel1Pin,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.######}" Header="Pump Dry protection Pin" Watermark="Pin [1..21]" Margin="0,0,0,0"   Width="40" />
+                                    <telerikInput:RadNumericBox Minimum="1"  Maximum="27"  Value="{Binding SelectedItem.OutPutLevel2Pin,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.######}" Header="Water Inlet Pin" Watermark="Pin [1..21]" Margin="0,0,0,0"   Width="40" />
+
+                                </StackPanel>
+
+                                <StackPanel Margin="0,0" Orientation="Horizontal">
+
+                                    <telerikInput:RadNumericBox Minimum="0"  Maximum="1"  Value="{Binding SelectedItem.OutPutLevel1PinActivValue,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.#}" Header="Dry protection active = [0,1]" Watermark="Output = [0..1]" Margin="0,0,0,0"   Width="40" />
+                                    <telerikInput:RadNumericBox Minimum="0"  Maximum="1"  Value="{Binding SelectedItem.OutPutLevel2PinActivValue,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.#}" Header="Water Inlet active = [0,1]" Watermark="Output = [0..1]" Margin="0,0,0,0"   Width="40" />
+
+                                </StackPanel>
+
+                                <StackPanel Margin="0,0" Orientation="Horizontal">
+
+                                    <telerikInput:RadNumericBox Minimum="0.5"  Maximum="5"  Value="{Binding SelectedItem.InletFillLevelInPercent,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.#}" Header="Water Inlet Qty [%]" Watermark="Water Inlet Qty = [0..5]" Margin="0,0,0,0"   Width="40" />
+                                    <telerikInput:RadNumericBox Minimum="0"  Maximum="60"  Value="{Binding SelectedItem.InletMaxActiveTime,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.#}" Header="max. Water Inlet Time [min]" Watermark="Water Inlet active = [0..60]" Margin="0,0,0,0"   Width="40" />
+
+                                </StackPanel>
+                                <StackPanel Margin="0,0" Orientation="Horizontal">
+
+                                    <telerikInput:RadNumericBox Minimum="0"  Maximum="21"  Value="{Binding SelectedItem.InletCycleFlushingTime,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.#}" Header="Cycle Inlet Flushing [day]" Watermark="Cycle Inlet Flushing = [0..21]" Margin="0,0,0,0"   Width="40" />
+                                    <telerikInput:RadNumericBox Minimum="1"  Maximum="120"  Value="{Binding SelectedItem.InletMaxCycleFlushingActiveTime,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.#}" Header="Inlet Flushing Time [sec]" Watermark="Cycle Inlet Flushing Active= [0..120]" Margin="0,0,0,0"   Width="40" />
+
+                                </StackPanel>
+                                
+                                <StackPanel Margin="0,0" Orientation="Horizontal">
+
+                                    <telerikInput:RadNumericBox Minimum="118"  Maximum="119"  Value="{Binding SelectedItem.BME280SensorId,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.######}" Header="BME280Sensor Id" Watermark="ID [118..119]" Margin="0,0,0,0"   Width="40" />
+                                    <telerikInput:RadNumericBox Minimum="1"  Maximum="27"  Value="{Binding SelectedItem.OutPutLedPin,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.######}" Header="OutPutLed Pin" Watermark="Pin [1..21]" Margin="0,0,0,0"   Width="40" />
+
+                                </StackPanel>
+
+                                <StackPanel Margin="0,0" Orientation="Horizontal">
+
+                                    <telerikInput:RadNumericBox Minimum="1"  Maximum="27"  Value="{Binding SelectedItem.ShutDownPin,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.######}" Header="Shutdown Input Pin" Watermark="Pin [1..21]" Margin="0,0,0,0"   Width="40" />
+
+                                </StackPanel>
+
+                                <StackPanel Margin="0,0" Orientation="Horizontal">
+                                    <telerikInput:RadNumericBox Minimum="0.5"  Maximum="60"  Value="{Binding SelectedItem.RefreshRateinSec,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.######}" Header="RefreshRate in Sec" Watermark="RefreshRate [0.5..60]sec" Margin="0,0,0,0"   Width="40" />
+                                    <telerikInput:RadNumericBox Minimum="0"  Maximum="50"  Value="{Binding SelectedItem.MaxLevelMillimeterProSec,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.######}" Header="Max. Fill. Level in mm/sec" Watermark="Max Level [3..40]pro sec" Margin="0,0,0,0"   Width="40" />
+
+                                </StackPanel>
+                                <StackPanel Margin="0,0" Orientation="Horizontal">
+                                    <ToggleSwitch  Header="Pump Dry protection" OffContent="InActive" OnContent="Active" IsOn="{Binding SelectedItem.OutPutFillingLevelMinActiv,ElementName=ListenerGridView, Mode=TwoWay}" Width="Auto"/>
+                                    <ToggleSwitch Header="Activate Water Inlet" OffContent="InActive" OnContent="Active" IsOn="{Binding SelectedItem.OutPutWellFillingLevelMinActiv,ElementName=ListenerGridView, Mode=TwoWay}" Width="Auto"/>
+                                </StackPanel>
+                                <StackPanel Margin="0,0" Orientation="Horizontal">
+                                    <ToggleSwitch Header="email Dry protection" OffContent="InActive" OnContent="Active" IsOn="{Binding SelectedItem.eMailFillingLevelMinActiv,ElementName=ListenerGridView, Mode=TwoWay}" Width="Auto"/>
+                                    <ToggleSwitch Header="email Water Inlet " OffContent="InActive" OnContent="Active" IsOn="{Binding SelectedItem.eMailWellFillingLevelMinActiv,ElementName=ListenerGridView, Mode=TwoWay}" Width="Auto"/>
+                                </StackPanel>
+                                <StackPanel Margin="0,0" Orientation="Horizontal">
+                                    <ToggleSwitch Header="email Well Level Max" OffContent="InActive" OnContent="Active" IsOn="{Binding SelectedItem.eMailWellFillingLevelMaxActiv,ElementName=ListenerGridView, Mode=TwoWay}"  Width="Auto" />
+                                    <ToggleSwitch Header="Listener Mode" OffContent="InActive" OnContent="Active" IsOn="{Binding SelectedItem.ListenerMode,ElementName=ListenerGridView, Mode=TwoWay}"  Width="Auto" />
+                                </StackPanel>
+
+                            </StackPanel>
+                            <StackPanel  Margin="0,5" Orientation="Vertical">
+                                <TextBlock Text="Add / Delete / Edit Remote "/>
+                                <StackPanel Margin="0,10" Orientation="Horizontal">
+                                    <AppBarButton Label="Add" Icon="Add"  Click="{x:Bind ButtonAddListener}"/>
+                                    <AppBarButton Label ="Delete" Icon="Delete" Click="{x:Bind ButtonDeleteListener}"/>
+                                    <AppBarButton Label ="Edit" Icon="Edit"  Click="{x:Bind ButtonEditListener}"/>
+                                    <AppBarButton Label ="set to Default Values" Icon="Download"  Click="{x:Bind setToDefault}"/>
+
+                                </StackPanel>
+
+
+                            </StackPanel>
+                        </StackPanel>
+
+
+                        
+                    </Grid>
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+
+                        <StackPanel Grid.Column="0"   Width="Auto" Orientation="Vertical" >
+
+                            <StackPanel Margin="0,0" Orientation="Vertical">
+
+
+
+                                <TextBlock Text="Configure Cysterne Data: "/>
+
+
+
+                                <StackPanel Margin="0,0" Orientation="Vertical">
+                 
+                                    <StackPanel Margin="0,0" Orientation="Horizontal">
+
+                                        <telerikInput:RadNumericBox Minimum="10"  Maximum="350"  Value="{Binding SelectedItem.StationSensors.SensorDistanceMax,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.######}" Header="SensorDistance Max [cm]" Watermark="SensorDistanceMax [cm]" Margin="0,0,0,0"   Width="40" />
+                                        <telerikInput:RadNumericBox Minimum="10"  Maximum="350"  Value="{Binding SelectedItem.StationSensors.SensorDistanceMin,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.######}" Header="SensorDistance Min [cm]" Watermark="SensorDistanceMin [cm]" Margin="0,0,0,0"   Width="40" />
+
+
+                                    </StackPanel>
+
+
+                                    <StackPanel Margin="0,0" Orientation="Horizontal">
+
+                                        <telerikInput:RadNumericBox  Minimum="0"  Maximum="100"  Value="{Binding SelectedItem.StationSensors.FillingLevelMax,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.#}"  Header="FillingLevel Max" Watermark="FillingLevelMax [%]" Margin="0,0,0,0" Width="40"  />
+                                        <telerikInput:RadNumericBox  Minimum="0"  Maximum="100"  Value="{Binding SelectedItem.StationSensors.FillingLevelMin,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.#}"  Header="FillingLevel Min" Watermark="FillingLevelMin [%]" Margin="0,0,0,0" Width="40"  />
+
+                                    </StackPanel>
+
+                                    <StackPanel Margin="0,0" Orientation="Horizontal">
+
+                                        <telerikInput:RadNumericBox  Minimum="0"  Maximum="100"  Value="{Binding SelectedItem.StationSensors.WellFillingLevelMax,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.#}"  Header="Well FillingLevel Max" Watermark="Well FillingLevel Max [%]" Margin="0,0,0,0" Width="40"  />
+                                        <telerikInput:RadNumericBox  Minimum="0"  Maximum="100"  Value="{Binding SelectedItem.StationSensors.WellFillingLevelMin,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.#}"  Header="Well FillingLevel Min" Watermark="Well FillingLevel Min [%]" Margin="0,0,0,0" Width="40"  />
+
+                                    </StackPanel>
+
+
+                                    <StackPanel Margin="0,0" Orientation="Horizontal">
+
+                                        <telerikInput:RadNumericBox  Minimum="0"  Maximum="500"  Value="{Binding SelectedItem.StationSensors.CysternDiameter,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.##}"  Header="CysternDiameter [cm]" Watermark="CysternDiameter [cm]" Margin="0,0,0,0" Width="40"  />
+                                        <telerikInput:RadNumericBox  Minimum="0"  Maximum="500"  Value="{Binding SelectedItem.StationSensors.CysternVolumeProCm,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.##}"  Header="CysternVolume in l/ cm Hight" Watermark="CysternVolume [l/cm]" Margin="0,0,0,0" Width="40"  />
+
+                                    </StackPanel>
+    
+                                    <StackPanel Margin="0,0" Orientation="Horizontal">
+
+                                         <telerikInput:RadNumericBox  Minimum="500"  Maximum="1500"  Value="{Binding SelectedItem.StationSensors.PressureMax,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.##}"  Header="Pressure Max [hPa]" Watermark="Pressure Max [hPa]" Margin="0,0,0,0" Width="40"  />
+                                        <telerikInput:RadNumericBox  Minimum="500"  Maximum="1500"  Value="{Binding SelectedItem.StationSensors.PressureMin,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.##}"  Header="Pressure Min [hPa]" Watermark="Pressure Min [hPa]" Margin="0,0,0,0" Width="40"  />
+
+                                    </StackPanel>
+
+                                    <StackPanel Margin="0,0" Orientation="Horizontal">
+
+                                         <telerikInput:RadNumericBox  Minimum="500"  Maximum="1500"  Value="{Binding SelectedItem.StationSensors.WellPressureMax,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.##}"  Header="Well Pressure Max [hPa]" Watermark="Well Pressure Max [hPa]" Margin="0,0,0,0" Width="40"  />
+                                        <telerikInput:RadNumericBox  Minimum="500"  Maximum="1500"  Value="{Binding SelectedItem.StationSensors.WellPressureMin,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.##}"  Header="Well Pressure Min [hPa]" Watermark="Well Pressure Min [hPa]" Margin="0,0,0,0" Width="40"  />
+
+                                    </StackPanel>
+
+
+                                    <StackPanel Margin="0,0" Orientation="Horizontal">
+                                        <telerikInput:RadNumericBox  Minimum="0"  Maximum="3000"  Value="{Binding SelectedItem.StationSensors.Height,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.##}"  Header="Pressure Sensor Height [m]" Watermark="Pressure Sensor Height [m]" Margin="0,0,0,0" Width="40"  />
+
+
+                                    </StackPanel>
+
+                                    <StackPanel Margin="0,0" Orientation="Horizontal">
+
+
+                                        <telerikInput:RadNumericBox Minimum="1"  Maximum="400"  Value="{Binding SelectedItem.StationSensors.RecordingHours,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.#}" Header="Recording hours [h]" Watermark="RecordingHours 0..400 [h]" Margin="0,0,0,0"   Width="40" />
+                                    <telerikInput:RadNumericBox Minimum="1"  Maximum="3600"  Value="{Binding SelectedItem.StationSensors.RecordingSamplePerHour,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0:N0}" Header="Recording Samples / hour" Watermark="1 .. 3600" Margin="0,0,0,0"   Width="40" />
+
+                                    </StackPanel>
+
+                                    <StackPanel Margin="0,0" Orientation="Horizontal">
+
+                                        <telerikInput:RadNumericBox  Minimum="-10"  Maximum="80"  Value="{Binding SelectedItem.StationSensors.TemperatureMax,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.#}"  Header="Temperature Max [°C]" Watermark="Temperature Max [°C]" Margin="0,0,0,0" Width="40"  />
+                                        <telerikInput:RadNumericBox  Minimum="-10"  Maximum="80"  Value="{Binding SelectedItem.StationSensors.TemperatureMin,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.#}"  Header="Temperature Min [°C]" Watermark="Temperature Min [°C]" Margin="0,0,0,0" Width="40"  />
+
+                                    </StackPanel>
+
+                                    <StackPanel Margin="0,0" Orientation="Horizontal">
+
+                                        <telerikInput:RadNumericBox  Minimum="-10"  Maximum="80"  Value="{Binding SelectedItem.StationSensors.WellTemperatureMax,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.#}"  Header="Well Temperature Max [°C]" Watermark="Well Temperature Max [°C]" Margin="0,0,0,0" Width="40"  />
+                                        <telerikInput:RadNumericBox  Minimum="-10"  Maximum="80"  Value="{Binding SelectedItem.StationSensors.WellTemperatureMin,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.#}"  Header="Well Temperature Min [°C]" Watermark="Well Temperature Min [°C]" Margin="0,0,0,0" Width="40"  />
+
+                                    </StackPanel>
+
+
+                                    <StackPanel Margin="0,0" Orientation="Horizontal">
+
+                                        <telerikInput:RadNumericBox  Minimum="0"  Maximum="100"  Value="{Binding SelectedItem.StationSensors.HumidityMax,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.#}"  Header="Humidity Max [%]" Watermark="Humidity Max [%]" Margin="0,0,0,0" Width="40"  />
+                                        <telerikInput:RadNumericBox  Minimum="0"  Maximum="100"  Value="{Binding SelectedItem.StationSensors.HumidityMin,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.#}"  Header="Humidity Min [%]" Watermark="Humidity Min [%]" Margin="0,0,0,0" Width="40"  />
+
+                                    </StackPanel>
+
+                                    <StackPanel Margin="0,0" Orientation="Horizontal">
+
+                                        <telerikInput:RadNumericBox  Minimum="0"  Maximum="100"  Value="{Binding SelectedItem.StationSensors.WellHumidityMax,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.#}"  Header="Well Humidity Max [%]" Watermark="Well Humidity Max [%]" Margin="0,0,0,0" Width="40"  />
+                                        <telerikInput:RadNumericBox  Minimum="0"  Maximum="100"  Value="{Binding SelectedItem.StationSensors.WellHumidityMin,ElementName=ListenerGridView, Mode=TwoWay}"  AllowNullValue="False" ValueFormat="{}{0,0:#,##0.#}"  Header="Well Humidity Min [%]" Watermark="Well Humidity Min [%]" Margin="0,0,0,0" Width="40"  />
+
+                                    </StackPanel>
+
+
+                                    <StackPanel Margin="0,0" Orientation="Horizontal">
+
+                                        <TextBox  KeyUp="OnKeyUpHandler"  PlaceholderText="Sensor ViewName"   MaxLength="40"   Text="{Binding SelectedItem.StationSensors.SensorViewName,ElementName=ListenerGridView, Mode=TwoWay}"  Header="Sensor Name" TextWrapping="Wrap"  Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="180" />
+
+                                    </StackPanel>
+                                </StackPanel>
+
+                                
+                            </StackPanel>
+
+                        </StackPanel>
+  
+    
+                </StackPanel>
+
+
+            </Grid>
+        </ScrollViewer>
+        <ScrollViewer  Grid.Row="1" Grid.Column="0" Margin="20,0,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+        
+
+                <StackPanel Margin="0,0,0,0"  Grid.Row="0"  Width="Auto" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text= "Connected Statitions:" />
+                        <ListView Height="Auto"  Grid.Row="1"  x:Name ="ListenerGridView" SelectionMode="Single" Tapped="ListenerGridViewTapped" IsItemClickEnabled = "False" ItemsSource="{x:Bind StationListeners.SocketListeners}"  SelectedIndex="{x:Bind StationListeners.SelectedIndex, Mode=TwoWay}" SelectionChanged="{x:Bind ListenerSelectionChanged, Mode=OneWay}"
+                                     ScrollViewer.HorizontalScrollMode="Enabled"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                     ScrollViewer.VerticalScrollMode="Enabled"
+                                   >
+
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"></StackPanel>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="StationLib:StationSocketListener">
+                                    <Grid HorizontalAlignment="Left" Width="300"  Height="Auto">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="5*"/>
+
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Grid.Column="0" HorizontalAlignment="Stretch"  Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                                            <Image    Source="{x:Bind ListenerImage , Mode=OneWay}" Stretch="Fill" />
+                                        </StackPanel>
+                                        <StackPanel  Grid.Column="1" HorizontalAlignment="Stretch"   Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
+                                            <TextBlock FontSize="25" Text="{x:Bind ViewName, Mode=OneWay}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextBlockStyle}"  TextWrapping="Wrap" Margin="0,0,0,0"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock FontSize="16"  Text="{x:Bind HostName, Mode=OneWay}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="NoWrap" Margin="0,0,0,0"/>
+                                                <TextBlock FontSize="16"  Text="{x:Bind Port, Mode=OneWay}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="NoWrap" Margin="10,0,0,0"/>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+
+
+                        </ListView>
+
+           
+                    </Grid>
+                    </StackPanel>
+      
+
+            </Grid>
+        </ScrollViewer>
+
+
+    </Grid>
+</Page>

@@ -1,0 +1,241 @@
+﻿<Page
+    x:Class="FillingLevelApp.Views.ViewGaugeSensorPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FillingLevelApp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:StationLib="using:StationLib"
+    xmlns:telericGauge="using:Telerik.UI.Xaml.Controls.DataVisualization"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer>
+
+
+        <Grid  HorizontalAlignment="Left" Width="650" Height="400" >
+
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="14*"/>
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Margin="0,0,0,0" Grid.Column="0"  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Row="0"  Grid.Column="0"  Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock FontSize="20" Text="{x:Bind SensorsValues.ActSensorValue.ActSensorPackageDateTime, Mode=OneWay}" Style="{StaticResource CaptionTextBlockStyle}" TextWrapping="NoWrap" Margin="10,0,0,0"/>
+                </StackPanel>
+                <StackPanel  Grid.Row="0"  Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock FontSize="20" Text="{x:Bind SensorsValues.SensorViewName, Mode=OneWay}"  Style="{StaticResource CaptionTextBlockStyle}" TextWrapping="NoWrap" Margin="0,0,0,0"/>
+                </StackPanel>
+
+            </Grid>
+
+
+            <Grid Grid.Row="1" Margin="0,10,0,0" Grid.Column="0"  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid  Grid.Row="0"   Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="8*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+           
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0"  Grid.Column="0" Margin="0,0,0,0" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
+
+                        <telericGauge:RadLinearGauge    Orientation="Vertical"  MinValue="{x:Bind SensorsValues.FillingLevelMin, Mode=OneWay}"  MaxValue="{x:Bind SensorsValues.FillingLevelMax, Mode=OneWay}" LabelStep="20" TickStep="20" >
+                            <telericGauge:RadLinearGauge.DataContext>
+                                <StationLib:StationSensors/>
+                            </telericGauge:RadLinearGauge.DataContext>
+                            <telericGauge:SegmentedLinearGaugeIndicator    telericGauge:RadRadialGauge.IndicatorRadiusScale="1.0" Value="{x:Bind SensorsValues.FillingLevelMax, Mode=OneWay}" >
+                                <telericGauge:BarIndicatorSegment  Thickness="3" Stroke="Red" Length="{x:Bind SensorsValues.FillingLevelScaleMin, Mode=OneWay}"/>
+                                <telericGauge:BarIndicatorSegment Thickness="3"  Stroke="Orange" Length="{x:Bind SensorsValues.FillingLevelScaleAvg, Mode=OneWay}"/>
+                                <telericGauge:BarIndicatorSegment Thickness="3" Stroke="Green" Length="{x:Bind SensorsValues.FillingLevelScaleMax, Mode=OneWay}"/>
+                            </telericGauge:SegmentedLinearGaugeIndicator>
+
+
+
+                            <telericGauge:MarkerGaugeIndicator  IsRotated ="False" Value="{x:Bind  SensorsValues.ActSensorValue.FillingLevel, Mode=OneWay}">
+                                <telericGauge:MarkerGaugeIndicator.ContentTemplate>
+                                    <DataTemplate x:DataType="StationLib:StationSensors">
+
+                                        <Ellipse Fill="White"  Width="15" Height="8"/>
+
+                                    </DataTemplate>
+                                </telericGauge:MarkerGaugeIndicator.ContentTemplate>
+
+
+                            </telericGauge:MarkerGaugeIndicator>
+
+                        </telericGauge:RadLinearGauge>
+
+                    </StackPanel>
+                    <StackPanel  Grid.Row="1"  Grid.Column="0">
+                        <TextBlock HorizontalAlignment="Center"  VerticalAlignment="Bottom" FontSize="30"  Style="{StaticResource CaptionTextBlockStyle}" Margin="0,0,0,0">
+                                                                                       <Run Text="{x:Bind  SensorsValues.ActSensorValue.FillingLevelasString, Mode=OneWay}"/>
+                                                                                       <Run Text="%"/>
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel  Grid.Row="2"  Grid.Column="0">
+                        <TextBlock HorizontalAlignment="Center"  VerticalAlignment="Bottom" FontSize="30"  Style="{StaticResource CaptionTextBlockStyle}" Margin="0,0,0,0">
+                                                                                       <Run Text="{x:Bind  SensorsValues.ActSensorValue.FillingVolumeasString, Mode=OneWay}"/>
+                                                                                       <Run Text="ltr."/>
+                        </TextBlock>
+                    </StackPanel>
+
+
+                </Grid>
+                <Grid Grid.Row="0"  Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0"  Grid.Column="0" Margin="7,7,7,0" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
+
+                        <telericGauge:RadRadialGauge  Margin="3,3,3,0" MinAngle="-0"  MaxAngle="180" MinValue="{x:Bind SensorsValues.TemperatureMin, Mode=OneWay}"  MaxValue="{x:Bind SensorsValues.TemperatureMax, Mode=OneWay}" LabelStep="5" TickStep="5" LabelRadiusScale="0.85" TickRadiusScale="1" >
+                            <telericGauge:RadRadialGauge.DataContext>
+                                <StationLib:StationSensors/>
+                            </telericGauge:RadRadialGauge.DataContext>
+                            <telericGauge:SegmentedRadialGaugeIndicator   telericGauge:RadRadialGauge.IndicatorRadiusScale="1.0" Value="{x:Bind SensorsValues.TemperatureMax, Mode=OneWay}" >
+                                <telericGauge:BarIndicatorSegment Thickness="3" Stroke="Orange" Length="{x:Bind SensorsValues.TemperatureScaleMin, Mode=OneWay}"/>
+                                <telericGauge:BarIndicatorSegment Thickness="3"  Stroke="Green" Length="{x:Bind SensorsValues.TemperatureScaleAvg, Mode=OneWay}"/>
+                                <telericGauge:BarIndicatorSegment Thickness="3" Stroke="Red" Length="{x:Bind SensorsValues.TemperatureScaleMax, Mode=OneWay}"/>
+                            </telericGauge:SegmentedRadialGaugeIndicator>
+
+
+
+                            <telericGauge:MarkerGaugeIndicator  IsRotated ="True" Value="{x:Bind  SensorsValues.ActSensorValue.Temperature, Mode=OneWay}">
+                                <telericGauge:MarkerGaugeIndicator.ContentTemplate>
+                                    <DataTemplate x:DataType="StationLib:StationSensors">
+
+                                        <Ellipse Fill="White"  Width="10" Height="5"/>
+
+                                    </DataTemplate>
+                                </telericGauge:MarkerGaugeIndicator.ContentTemplate>
+
+
+                            </telericGauge:MarkerGaugeIndicator>
+
+                        </telericGauge:RadRadialGauge>
+                    </StackPanel>
+                    <StackPanel  Grid.Row="0"  Grid.Column="0">
+                        <TextBlock HorizontalAlignment="Center"  VerticalAlignment="Bottom" FontSize="25"  Style="{StaticResource CaptionTextBlockStyle}" Margin="0,70,0,0">
+                                                                                       <Run Text="{x:Bind  SensorsValues.ActSensorValue.TemperatureasString, Mode=OneWay}"/>
+                                                                                       <Run Text="°C"/>
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel  Grid.Row="1" Grid.Column="0" Margin="7,7,7,0"   Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
+
+                        <telericGauge:RadRadialGauge Margin="3,3,3,0" LabelStep="100"  MinValue="{x:Bind SensorsValues.PressureMin, Mode=OneWay}"  MaxValue="{x:Bind SensorsValues.PressureMax, Mode=OneWay}" TickStep="100" LabelRadiusScale="0.85" TickRadiusScale="1" >
+                            <telericGauge:RadRadialGauge.DataContext>
+                                <StationLib:StationSensors/>
+                            </telericGauge:RadRadialGauge.DataContext>
+                            <telericGauge:SegmentedRadialGaugeIndicator telericGauge:RadRadialGauge.IndicatorRadiusScale="1.0" Value="{x:Bind SensorsValues.PressureMax, Mode=OneWay}" >
+                                <telericGauge:BarIndicatorSegment  Thickness="3" Stroke="Orange" Length="{x:Bind SensorsValues.PressureScaleMin, Mode=OneWay}"/>
+                                <telericGauge:BarIndicatorSegment  Thickness="3" Stroke="Green" Length="{x:Bind SensorsValues.PressureScaleAvg, Mode=OneWay}"/>
+                                <telericGauge:BarIndicatorSegment  Thickness="3" Stroke="Red" Length="{x:Bind SensorsValues.PressureScaleMax, Mode=OneWay}"/>
+                            </telericGauge:SegmentedRadialGaugeIndicator>
+
+
+                            <telericGauge:MarkerGaugeIndicator  IsRotated ="True" Value="{x:Bind  SensorsValues.ActSensorValue.PressurehPaSeaLevel, Mode=OneWay}">
+                                <telericGauge:MarkerGaugeIndicator.ContentTemplate>
+                                    <DataTemplate x:DataType="StationLib:StationSensors">
+
+                                        <Ellipse  Fill="White" Width="10" Height="5"/>
+
+                                    </DataTemplate>
+                                </telericGauge:MarkerGaugeIndicator.ContentTemplate>
+
+
+                            </telericGauge:MarkerGaugeIndicator>
+
+                        </telericGauge:RadRadialGauge>
+
+                    </StackPanel>
+                    <StackPanel  Grid.Row="1"  Grid.Column="0">
+                        <TextBlock HorizontalAlignment="Center"  VerticalAlignment="Bottom" FontSize="25"  Style="{StaticResource CaptionTextBlockStyle}" Margin="0,70,0,0">
+                                                                                       <Run Text="{x:Bind  SensorsValues.ActSensorValue.PressurehPaSeaLevelasString, Mode=OneWay}"/>
+                                                                                       <Run Text="hPa"/>
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel   Grid.Row="2" Grid.Column="0" Margin="7,7,7,0"   Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
+
+                        <telericGauge:RadRadialGauge  Margin="3,3,3,0" LabelStep="10"  MinValue="{x:Bind SensorsValues.HumidityMin, Mode=OneWay}"  MaxValue="{x:Bind SensorsValues.HumidityMax, Mode=OneWay}"  TickStep="10" LabelRadiusScale="0.85" TickRadiusScale="1" >
+                            <telericGauge:RadRadialGauge.DataContext>
+                                <StationLib:StationSensors/>
+                            </telericGauge:RadRadialGauge.DataContext>
+                            <telericGauge:SegmentedRadialGaugeIndicator telericGauge:RadRadialGauge.IndicatorRadiusScale="1.0" Value="{x:Bind SensorsValues.HumidityMax, Mode=OneWay}" >
+                                <telericGauge:BarIndicatorSegment  Thickness="3" Stroke="Orange" Length="{x:Bind SensorsValues.HumidityScaleMin, Mode=OneWay}"/>
+                                <telericGauge:BarIndicatorSegment  Thickness="3" Stroke="Green" Length="{x:Bind SensorsValues.HumidityScaleAvg, Mode=OneWay}"/>
+                                <telericGauge:BarIndicatorSegment  Thickness="3" Stroke="Red" Length="{x:Bind SensorsValues.HumidityScaleMax, Mode=OneWay}"/>
+                            </telericGauge:SegmentedRadialGaugeIndicator>
+
+
+                            <telericGauge:MarkerGaugeIndicator IsRotated ="True" Value="{x:Bind  SensorsValues.ActSensorValue.Humidity, Mode=OneWay}">
+                                <telericGauge:MarkerGaugeIndicator.ContentTemplate>
+                                    <DataTemplate x:DataType="StationLib:StationSensors">
+
+                                        <Ellipse  Fill="White" Width="10" Height="5"/>
+
+                                    </DataTemplate>
+                                </telericGauge:MarkerGaugeIndicator.ContentTemplate>
+
+                            </telericGauge:MarkerGaugeIndicator>
+
+
+                        </telericGauge:RadRadialGauge>
+                    </StackPanel>
+                    <StackPanel  Grid.Row="2"  Grid.Column="0">
+                        <TextBlock HorizontalAlignment="Center"  VerticalAlignment="Bottom" FontSize="25"  Style="{StaticResource CaptionTextBlockStyle}" Margin="0,70,0,0">
+                                                                                       <Run Text="{x:Bind  SensorsValues.ActSensorValue.HumidityasString, Mode=OneWay}"/>
+                                                                                       <Run Text="%"/>
+                        </TextBlock>
+                    </StackPanel>
+
+
+                </Grid>
+                <Grid Grid.Row="0"  Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel  Grid.Row="0"  Grid.Column="0"  Margin="15,0,0,0" Orientation="Vertical">
+                        <ToggleSwitch FontSize="16" Width="180" Margin="0,0,0,0" Header="Sensor Distance" OffContent="OK" OnContent="ERROR" IsOn="{x:Bind SensorsValues.ActSensorValue.SensorDistanceError, Mode=OneWay}"/>
+                        <ToggleSwitch FontSize="16" Width="180" Margin="0,0,0,0" Header="Sensor Temperature" OffContent="OK" OnContent="ERROR" IsOn="{x:Bind SensorsValues.ActSensorValue.SensorTemperatureError, Mode=OneWay}" />
+                    </StackPanel>
+                    <StackPanel   Grid.Row="1"  Grid.Column="0"  Margin="15,0,0,0" Orientation="Vertical" >
+                        <ToggleSwitch FontSize="16" Width="180" Header="Pump Dry protection" OffContent="OFF" OnContent="ON" IsOn="{x:Bind SensorsValues.ActSensorValue.OutPutFillingLevelMin, Mode=OneWay}"/>
+                        <ToggleSwitch FontSize="16" Width="180" Header="Water Inlet active" OffContent="OFF" OnContent="ON" IsOn="{x:Bind SensorsValues.ActSensorValue.OutPutWellFillingLevelMin, Mode=OneWay}"/>
+                      </StackPanel>
+
+                </Grid>
+
+
+
+            </Grid>
+
+
+
+        </Grid>
+
+
+
+
+
+    </ScrollViewer>
+</Page>

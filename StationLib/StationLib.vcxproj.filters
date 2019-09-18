@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>55aedad0-3234-4559-adb8-af6587bb453e</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="StationSensor.cpp" />
+    <ClCompile Include="StationSensors.cpp" />
+    <ClCompile Include="ServiceChunkReceiver.cpp" />
+    <ClCompile Include="StationSocketListener.cpp" />
+    <ClCompile Include="SensorPackage.cpp" />
+    <ClCompile Include="SocketStationListeners.cpp" />
+    <ClCompile Include="StationEnvironment.cpp" />
+    <ClCompile Include="SensorStatistic.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="StationSensor.h" />
+    <ClInclude Include="StationSensors.h" />
+    <ClInclude Include="ServiceChunkReceiver.h" />
+    <ClInclude Include="StationSocketListener.h" />
+    <ClInclude Include="SensorPackage.h" />
+    <ClInclude Include="SocketStationListeners.h" />
+    <ClInclude Include="StationEnvironment.h" />
+    <ClInclude Include="SensorStatistic.h" />
+  </ItemGroup>
+</Project>
