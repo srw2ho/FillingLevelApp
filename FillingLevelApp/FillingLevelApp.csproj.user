@@ -13,12 +13,12 @@
     <UseEmulator>false</UseEmulator>
     <RemoteDebugEnabled>true</RemoteDebugEnabled>
     <AuthenticationMode>Universal</AuthenticationMode>
-    <RemoteDebugMachine>WilliRaspi2</RemoteDebugMachine>
+    <RemoteDebugMachine>Zysterne</RemoteDebugMachine>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DeviceId>30F105C9-681E-420b-A277-7C086EAD8A4E</DeviceId>
     <UseEmulator>false</UseEmulator>
-    <RemoteDebugMachine>WilliRaspi2</RemoteDebugMachine>
+    <RemoteDebugMachine>Zysterne</RemoteDebugMachine>
     <AuthenticationMode>Universal</AuthenticationMode>
     <RemoteDebugEnabled>true</RemoteDebugEnabled>
   </PropertyGroup>
@@ -26,6 +26,6 @@
     <UapAppxPackageBuildMode>SideloadOnly</UapAppxPackageBuildMode>
     <AppxShowAllApps>False</AppxShowAllApps>
     <AppxBuildConfigurationSelection>x86|x64|arm</AppxBuildConfigurationSelection>
-    <PackageOptionalProjectsInIdeBuilds>True</PackageOptionalProjectsInIdeBuilds>
+    <PackageOptionalProjectsInIdeBuilds>False</PackageOptionalProjectsInIdeBuilds>
   </PropertyGroup>
 </Project>

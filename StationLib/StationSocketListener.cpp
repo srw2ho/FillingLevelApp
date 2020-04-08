@@ -547,11 +547,15 @@ namespace StationLib {
 		}
 
 		// wenn in aktiv dann au 0 setzen oder wenn Fehler Distance Sensor
-		if (!m_OutPutFillingLevelMinActiv || m_StationSensors->ActSensorValue->SensorDistanceError)
+		//if (!m_OutPutFillingLevelMinActiv || m_StationSensors->ActSensorValue->SensorDistanceError)
+		//srw2ho,08.04.2020: Inlet activate also in case of Display-Button
+		if (!m_OutPutFillingLevelMinActiv)
 		{	// inaktiv setzen
 			m_PumpDryProtectionActive = false;
 		}
-		if (!m_OutPutWellFillingLevelMinActiv || m_StationSensors->ActSensorValue->SensorDistanceError)
+	//	if (!m_OutPutWellFillingLevelMinActiv || m_StationSensors->ActSensorValue->SensorDistanceError)
+		//srw2ho,08.04.2020: Inlet activate also in case of Display-Button
+		if (!m_OutPutWellFillingLevelMinActiv)
 		{
 			m_WaterInletActive = false;
 		}
