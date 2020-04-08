@@ -585,7 +585,7 @@ namespace FillingLevelApp.Helpers
 
 
             string StringValue;
-    
+
             double doubleValue;
 
             bool boolValue;
@@ -609,20 +609,20 @@ namespace FillingLevelApp.Helpers
 
 
             bok = m_localStorage.readStringSettingsfromLocalStorage(composite, m_LocalStorageSettings.getCompositePropertyIDName("m_eMailing.Receipients_00"), out StringValue);
-            if (StringValue.Length > 0)
-                this.m_eMailing.Receipients.Add(StringValue);
+            if ( (StringValue.Length > 0) && (this.m_eMailing.Receipients.Count > 0))
+                this.m_eMailing.Receipients[0] =  StringValue;
 
             bok = m_localStorage.readStringSettingsfromLocalStorage(composite, m_LocalStorageSettings.getCompositePropertyIDName("m_eMailing.Receipients_01"), out StringValue);
-            if (StringValue.Length > 0)
-                this.m_eMailing.Receipients.Add(StringValue);
+            if ((StringValue.Length > 0) && (this.m_eMailing.Receipients.Count > 1))
+                this.m_eMailing.Receipients[1] = StringValue;
 
             bok = m_localStorage.readStringSettingsfromLocalStorage(composite, m_LocalStorageSettings.getCompositePropertyIDName("m_eMailing.Receipients_02"), out StringValue);
-            if (StringValue.Length > 0)
-                this.m_eMailing.Receipients.Add(StringValue);
+            if ((StringValue.Length > 0) && (this.m_eMailing.Receipients.Count > 2))
+                this.m_eMailing.Receipients[2] = StringValue;
 
             bok = m_localStorage.readStringSettingsfromLocalStorage(composite, m_LocalStorageSettings.getCompositePropertyIDName("m_eMailing.Receipients_03"), out StringValue);
-            if (StringValue.Length > 0)
-            this.m_eMailing.Receipients.Add(StringValue);
+            if ((StringValue.Length > 0) && (this.m_eMailing.Receipients.Count > 3))
+                this.m_eMailing.Receipients[3] = StringValue;
 
 
 
