@@ -101,11 +101,15 @@ namespace StationLib
 		Platform::String^  rec = reader->ReadString(m_chunkBufferSize);
 		if (rec == ("GPIOServiceClient.Started")) {
 
-			Platform::String^ command = m_pGPIOClientInOut->GetGPIClientSendState();
+			Windows::Storage::Streams::IBuffer^ buf = m_pGPIOClientInOut->GetGPIClientSendStateBuf();
+			if (buf != nullptr) {
+				this->SendData(buf);
+			}
+		//	Platform::String^ command = m_pGPIOClientInOut->GetGPIClientSendState();
 			
-			Windows::Storage::Streams::IBuffer^ buf = SocketHelpers::createPayloadBufferfromSendData(command);
+		//	Windows::Storage::Streams::IBuffer^ buf = SocketHelpers::createPayloadBufferfromSendData(command);
 			m_acceptingData = true;
-			this->SendData(buf);
+
 
 		}
 		else if (rec == ("GPIOServiceClient.Stopped")) {

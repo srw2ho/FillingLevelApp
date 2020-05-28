@@ -445,11 +445,16 @@ namespace StationLib {
 	{
 		m_pOutPutLevel2Pin->setSetValue((m_OutPutLevel2PinActivValue == 0) ? 1 : 0); // Inlet Valve abschalten
 		m_pOutPutLevel1Pin->setSetValue((m_OutPutLevel1PinActivValue == 0) ? 1 : 0); // Inlet Valve abschalten
-		Platform::String^ state = m_GPIOClientInOut->GetGPIClientSendState(); // Status aller Ausgänge
-		if (state->Length() > 0) {
-			Windows::Storage::Streams::IBuffer^ buf = SocketHelpers::createPayloadBufferfromSendData(state);
+		Windows::Storage::Streams::IBuffer^ buf = m_GPIOClientInOut->GetGPIClientSendStateBuf();
+		if (buf != nullptr) {
 			m_pSocketListener->SendDataToClients(buf);
 		}
+
+		//Platform::String^ state = m_GPIOClientInOut->GetGPIClientSendState(); // Status aller Ausgänge
+		//if (state->Length() > 0) {
+		//	Windows::Storage::Streams::IBuffer^ buf = SocketHelpers::createPayloadBufferfromSendData(state);
+		//	m_pSocketListener->SendDataToClients(buf);
+		//}
 
 	}
 
@@ -654,12 +659,18 @@ namespace StationLib {
 								m_pOutPutLevel1Pin->setSetValue((m_OutPutLevel1PinActivValue == 0) ? 1 : 0); // Inlet Valve abschalten
 							}
 
+							
+							Windows::Storage::Streams::IBuffer^ buf = m_GPIOClientInOut->GetGPIClientSendStateBuf();
+							if (buf != nullptr) {
+								m_pSocketListener->SendDataToClients(buf);
+							}
+
 
 							// Anforderungen an Service senden
-							Platform::String^ state = m_GPIOClientInOut->GetGPIClientSendState(); // Status aller Ausgänge
+							//Platform::String^ state = m_GPIOClientInOut->GetGPIClientSendState(); // Status aller Ausgänge
 
-							Windows::Storage::Streams::IBuffer^ buf = SocketHelpers::createPayloadBufferfromSendData(state);
-							m_pSocketListener->SendDataToClients(buf);
+							//Windows::Storage::Streams::IBuffer^ buf = SocketHelpers::createPayloadBufferfromSendData(state);
+							//m_pSocketListener->SendDataToClients(buf);
 
 							lastSendTime = ConversionHelpers::TimeConversion::getActualUnixTime();
 						}
