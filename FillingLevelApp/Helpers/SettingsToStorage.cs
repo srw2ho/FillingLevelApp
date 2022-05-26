@@ -414,7 +414,7 @@ namespace FillingLevelApp.Helpers
             listener.GPIOHCSR04EchoPin = 12;
             listener.GPIOHCSR04TriggPin = 23;
             listener.BME280SensorId = 0x76;
-            listener.OutPutLedPin = 21;
+            listener.OutPutLedPin = 22;
 
             listener.OutPutLevel1Pin = 17;
 
@@ -447,8 +447,10 @@ namespace FillingLevelApp.Helpers
             StationSensors sensorValue = listener.StationSensors;
             sensorValue.DevId = 118;
             sensorValue.SensorViewName = "";
-            sensorValue.RecordingHours = 24;
-            sensorValue.RecordingSamplePerHour = 50;
+            // 204 stunde Aufzeichnung
+            sensorValue.RecordingHours = 204;
+            //mit 5 Samples/Sec.
+            sensorValue.RecordingSamplePerHour = 5;
 
 
             sensorValue.HumidityMax = 100;
