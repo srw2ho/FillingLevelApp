@@ -438,7 +438,7 @@ namespace FillingLevelApp.Helpers
 
             listener.InletFillLevelInPercent = 2;
 
-            listener.InletMaxActiveTime = 1;
+            listener.InletMaxActiveTime = 0;
             listener.InletMaxCycleFlushingActiveTime = 1;
 
             listener.InletCycleFlushingTime = 2; // alle 2 Tage

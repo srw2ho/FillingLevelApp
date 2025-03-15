@@ -109,7 +109,7 @@ namespace StationLib {
 	  m_OutPutLevel1PinActivValue = 0;
 
 	  m_InletFillLevelInPercent = 2;		// Wasser Einlauf in % vom max. Füllstandslevel
-	  m_InletMaxActiveTime = 0.5;				// maximale aktive Einlauf-Zeit in Sec
+	  m_InletMaxActiveTime = 0.0;				// maximale aktive Einlauf-Zeit in Sec
 
 	  m_InletMaxCycleFlushingActiveTime = 1; // maximale aktive Inlet Flushing-Zeit in Sec
 
